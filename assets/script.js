@@ -10,13 +10,14 @@ var formSubmit = function(event){
     var city = cityInput.value.trim();
     var citySearch = city.replace(" ","+")
     if (citySearch) {
-        retrieveCityData(citySearch);
+        getCurrent(citySearch);
         cityInput.value ="";
     }
 };
 
-var getCurrent = function(search){
-    var currentAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + search + "&appid=891d5adf6f627c8e1d4185e6ee80e104";
+var getCurrent = function(citySearch){
+    var currentAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&appid=891d5adf6f627c8e1d4185e6ee80e104";
+    // console.log(currentAPI);
     fetch(currentAPI)
     .then(function(response){ 
     return response.json()})
@@ -25,6 +26,10 @@ var getCurrent = function(search){
 });
 };
 getCurrent();
+
+
+//takes the long and lat values from the weatherAPI and concatonates them in the forecastAPI 
+    //weatherAPI : coord.lon, coord.lat
 
 var getForecast = function(lat,lon){
     var forecastAPI = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=891d5adf6f627c8e1d4185e6ee80e104";
@@ -36,6 +41,17 @@ var getForecast = function(lat,lon){
 });
 };
 getForecast();
+
+var displayCurrent = function(cityInput){
+    cityInput.textContent = cityInput;
+    var currentEl = currentContainer.createElement("p");
+    currentEl.classList = "list-item flex-row justify-space-between align-center";
+    currentEl.textContent = cityInput;
+
+    currentEl.appendChild(cityInput);
+
+}
+
 
 // function searchForecast(city){
 
@@ -75,3 +91,10 @@ getForecast();
 
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city ; retrieve from local storage
+
+
+
+// need to define var savedCityButton : ID of stored city once it is appended
+    //class="btn-outline-secondary rounded ml-1 m-2"
+userForm.addEventListener("submit",formSubmit);
+savedCityButton.addEventListener("click", buttonClick);
