@@ -9,17 +9,17 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <nav class="navbar navbar-light justify-content-center">
-        <span class="navbar-brand mb-0 h1">weather dashboard</span>
-    </nav>
+    <header class="navbar navbar-light justify-content-center">
+        <h1 class="navbar-brand text-light mb-0">weather dashboard</h1>
+    </header>
     <main class="flex-row justify-space-between">
-    <div class="col-12 col-md-4">
-      <div class="card">
+    <div class="col-12 col-md-4 p-4">
+      <div class="card text-secondary">
         <h3 class="card-header">search by city</h3>
         <form id="user-form" class="card-body">
           <label class="form-label">city:</label>
-          <input id="city" type="text" class="form-input"/>
-          <button type="submit" class="btn-primary">search</button>
+          <input id="city" type="text" class="form-input rounded"/>
+          <button type="submit" class="btn-outline-secondary rounded ml-1 mx-2">search</button>
         </form>
       </div>
       </div>
@@ -27,6 +27,66 @@
         Appended once the search button is clicked (java)
         <button type="search" class="btn btn-primary btn-medium ml-3 my-5">city</button>
       </div> -->
+      <div class="col-12 col-md-4 p-4">
+        <div class="card text-secondary">
+          <h3 class="card-header">saved cities</h3>
+          <div id="saved-cities" class="card-body"></div>
+        </div>
+      </div>
+      <div class="col-12 col-md-8 p-4">
+        <h2 class="subtitle text-secondary">current weather conditions: <span id="current-weather"></span></h2>
+        <div id="current-container"></div>
+      </div>
+      <div class="card">
+        <h5 class="card-header">Featured</h5>
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-8 p-4">
+        <h2 class="subtitle text-secondary">forecast: <span id="forecast-weather"></span></h2>
+        <div id="forecast-container"></div>
+      </div>
+      <div class="card bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+          <h5 class="card-title">Light card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="card bg-light mb-3" style="max-width: 18rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+              <h5 class="card-title">Light card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                  <h5 class="card-title">Light card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Header</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Light card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <div class="card bg-light mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">
+                          <h5 class="card-title">Light card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+      
+
+
+
+
+
+
+
+<!--       
         <div class="col-12 col-md-8">
             <div class="row">
               <div class="col">
@@ -51,9 +111,9 @@
               </div>
             </div>
           </div>
-      </main>
-      </div>
-
+      
+      </div> -->
+    </main>
 <script type="text/javascript" src="./assets/script.js"> </script>
 </body>
 

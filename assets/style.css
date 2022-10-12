@@ -1,0 +1,11 @@
+:root {
+    --background-purple: rgb(157, 162, 221);
+    --color-dark: rgb(111, 111, 111);
+}
+
+
+header {
+    background-color: var(--background-purple);
+    width: 100vw;
+    height: 10vh;
+}
