@@ -6,14 +6,27 @@ var forecastContainer =  document.querySelector("#forecast-container");
 
 var formSubmit = function(event){
     event.preventDefault();
+    //trim excess spaces (leading and trailing),if there is still is a space, it is between words in the city, replace with "+"
     var city = cityInput.value.trim();
     var citySearch = city.replace(" ","+")
-    if (city) {
-        retrieveCityData(city);
-        currentContainer.textContent = "";
+    if (citySearch) {
+        retrieveCityData(citySearch);
         cityInput.value ="";
     }
 };
+
+var getCurrent = function(search){
+    var currentAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + search + "&appid=891d5adf6f627c8e1d4185e6ee80e104";
+    fetch(currentAPI)
+    .then(function(response){ 
+    return response.json()})
+    .then(function(data) {
+    console.log(data)
+});
+};
+
+getCurrent("pacifica");
+
 
 // function searchForecast(city){
 
