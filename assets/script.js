@@ -21,12 +21,21 @@ var getCurrent = function(search){
     .then(function(response){ 
     return response.json()})
     .then(function(data) {
-    console.log(data)
+    // console.log(data)
 });
 };
+getCurrent();
 
-getCurrent("pacifica");
-
+var getForecast = function(lat,lon){
+    var forecastAPI = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=891d5adf6f627c8e1d4185e6ee80e104";
+    fetch(forecastAPI)
+    .then(function(response){ 
+    return response.json()})
+    .then(function(data) {
+    // console.log(data)
+});
+};
+getForecast();
 
 // function searchForecast(city){
 
