@@ -3,8 +3,11 @@
 
 ## Description:
 This application uses a weather API, OpenWeather Map, to populate current and forecasted weather conditions. It allows users to search weather conditions by city, see the current and 5-day forecasted weather conditions, and click on previously searched cities to repopulate the forecast elements.
+
 ![Screenshot of search box](./assets/images/search-ss.png)
+
 ![Screenshot of saved cities](./assets/images/saved-ss.png)
+
 ![Screenshot of current conditions](./assets/images/current-ss.png)
 
 ## Usage:
