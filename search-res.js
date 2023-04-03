@@ -131,7 +131,14 @@ function getForecast(searchLat, searchLon){
     fetch(forQueryUrl)
         .then(function(response){
             response.json().then(function (data) {
-            console.log(data.list[0].main.temp);
+        // data needed: current
+        // city, date, icon, temp, wind, humidity
+            console.log(data.list[0].main.temp + " temp");
+            console.log(data.list[0].dt_txt + " time");
+            console.log(data.city.name + " city");
+            console.log(data.list[0].main.humidity + " humidity");
+            console.log(data.list[0].wind.speed + " wind speed");
+            console.log(data.list[0].weather[0].icon + " icon id");
         //   return data[0].lat , data[0].lon;
         })
     
