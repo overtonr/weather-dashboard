@@ -1,26 +1,15 @@
 var userForm = document.querySelector("#user-form");
-// var cityInput = document.querySelector("#city-input");
+var cityInput = document.querySelector("#city-input");
 var currentContainer = document.querySelector("#current-container");
 // var forecastContainer =  document.querySelector("#forecast-container");
 
 
 
-// var formSubmit = function(event){
-//     // preventDefault();
-//     //trim excess spaces (leading and trailing),if there is still is a space, it is between words in the city, replace with "+"
-//     var citySearch = city.replace(" ","+")
-//     if (citySearch) {
-//         getCurrent(citySearch);
-//         cityInput.value ="";
-//     }
-//     return citySearch;
-// };
-
 // var getCurrent = function(citySearch){
 //     var currentAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&appid=891d5adf6f627c8e1d4185e6ee80e104";
 //     // console.log(currentAPI);
 //     fetch(currentAPI)
-//     .then(function(response){ 
+//     .then(function(response){
 //     return response.json();
 //     console.log(response.json())
 // })
@@ -33,14 +22,13 @@ var currentContainer = document.querySelector("#current-container");
 //     })};
 // getCurrent();
 
-
-//takes the long and lat values from the weatherAPI and concatonates them in the forecastAPI 
-    //weatherAPI : coord.lon, coord.lat
+//takes the long and lat values from the weatherAPI and concatonates them in the forecastAPI
+//weatherAPI : coord.lon, coord.lat
 
 // var getForecast = function(lat,lon){
 //     var forecastAPI = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=891d5adf6f627c8e1d4185e6ee80e104";
 //     fetch(forecastAPI)
-//     .then(function(response){ 
+//     .then(function(response){
 //     return response.json()})
 //     .then(function(data) {
 //     // console.log(data)
@@ -58,22 +46,18 @@ var currentContainer = document.querySelector("#current-container");
 
 // }
 
-
 // function searchForecast(city){
-
 
 //     var weatherAPI = "https://api.openweathermap.org/data/2.5/weather?q=pacifica&appid=891d5adf6f627c8e1d4185e6ee80e104";
 //     var forecastAPI = "https://api.openweathermap.org/data/2.5/forecast?lat=37.6138&lon=-122.4869&appid=891d5adf6f627c8e1d4185e6ee80e104";
 //     fetch(forecastAPI)
-//         .then(function(response){ 
+//         .then(function(response){
 //         return response.json()})
 //         .then(function(data) {
 //         console.log(data)
 //     });
 // };
 // searchForecast();
-
-
 
 // fetch(requestUrl)
 //   .then(function (response) {
@@ -90,65 +74,71 @@ var currentContainer = document.querySelector("#current-container");
 //     }
 //   });
 
-
 // need to define var savedCityButton : ID of stored city once it is appended
-    //class="btn-outline-secondary rounded ml-1 m-2"
+//class="btn-outline-secondary rounded ml-1 m-2"
 // userForm.addEventListener("submit",formSubmit);
 // savedCityButton.addEventListener("click", buttonClick);
-
-
 
 //user input city -- API call for coordinates
 
 //http://api.openweathermap.org/geo/1.0/direct?q=san+francisco&limit=5&appid=891d5adf6f627c8e1d4185e6ee80e104
 
-
+// function that captures the value of the form input from the user
 var formSubmitHandler = function (event) {
-    event.preventDefault();
-    // getCord();
-    var cityName = document.querySelector('#city-input').value.trim();
+  event.preventDefault();
+  var cityName = document.querySelector("#city-input").value.trim();
 
-    console.log(cityName);
-
-    // var cityname = nameInputEl.value.trim();
-    // var cityInput = document.querySelector("#city-input");
-  
-    if (cityName) {
-      getCord(cityName);
-  
-      
-      userForm.value = '';
-    } else {
-      console.log('Please enter a GitHub cityName');
-    }
-  };
-
-  
-// var city = "san+francisco"
-function getCord(city) {
-    var corQueryUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=891d5adf6f627c8e1d4185e6ee80e104';
-  
-  
-console.log(corQueryUrl);
-fetch(corQueryUrl)
-.then(function (response) {
-  if (response.ok) {
-    response.json().then(function (data) {
-      console.log(data, city);
-    //   response.json();
-    });
+  if (cityName) {
+    getCord(cityName);
+    cityInput.value = "";
   } else {
-    console.log('Error: ' + response.statusText);
+    console.log("Please enter a city");
   }
-})
+};
 
-.catch(function (error) {
-  console.log('Unable to connect to GitHub');
-});
+// calls to Geocoding API to get the cordinates of a city based on the user's form input val
+function getCord(city) {
+  var corQueryUrl =
+    "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=891d5adf6f627c8e1d4185e6ee80e104";
+
+  console.log(corQueryUrl);
+  fetch(corQueryUrl)
+    .then(function (response) {
+    // status in the range 200-299
+      if (response.ok) {
+        response.json().then(function (data) {
+          //only retrieves the data from the first result
+          console.log( data[0].lat, data[0].lon);
+          var searchLat = data[0].lat;
+          var searchLon = data[0].lon;
+
+          getForecast(searchLat, searchLon);
+        });
+      } else {
+        console.log("Error: " + response.statusText);
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    // getForecast(searchLat, searchLon);
 };
 
 
-  userForm.addEventListener('submit',formSubmitHandler);
+function getForecast(searchLat, searchLon){
+    var forQueryUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + searchLat + "&lon=" + searchLon + "&units=imperial&appid=891d5adf6f627c8e1d4185e6ee80e104";
+    console.log(forQueryUrl);
+    fetch(forQueryUrl)
+        .then(function(response){
+            response.json().then(function (data) {
+            console.log(data.list[0].main.temp);
+        //   return data[0].lat , data[0].lon;
+        })
+    
+})};
+
+
+userForm.addEventListener("submit", formSubmitHandler);
 
 //after API for coordinates made, API for forecast using the values from the prev call
 // function that renders data for searched city onto screem
