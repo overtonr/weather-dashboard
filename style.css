@@ -12,6 +12,7 @@ h1 {
   background-color: var(--background-purple);
   width: 100vw;
   height: 10vh;
+  font-size: 5vh;
 }
 
 .hidden {
