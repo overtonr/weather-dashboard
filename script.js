@@ -10,15 +10,13 @@ function formSubmit(event) {
   console.log(searchVal);
 
   if (!searchVal) {
-    console.error("please enter a city name");
+    console.error('You need a search input value!');
     return;
   }
+  // We use location.assign() to maintain correct functionality of the Back button in the browser—which wouldn't be the case if we were to use location.replace():
+  var queryString = './search-res.html?q=' + searchVal;
 
-  //   var queryString = './search-res.html?q=' + searchVal ;
-//   var queryString = './search-results.html?q=' + searchInputVal + '&format=' + formatInputVal;
-
-  //   location.assign(queryString);
-  else console.log("search for " + searchVal);
+  location.assign(queryString);
 }
 
 console.log("hello");

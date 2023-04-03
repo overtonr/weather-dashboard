@@ -69,42 +69,45 @@ function renderForecast(forecastObj) {
   forecastCard.classList.add("card", "mb-3", "ml-5");
   var forecastHeader = document.createElement("div");
   forecastHeader.classList.add("card-header");
-  var numForecasts = forecastObj.list.length +1;
+  var numForecasts = forecastObj.list.length + 1;
   for (var i = 0; i < numForecasts; i += 8) {
-  var formattedDate = new Date(forecastObj.list[i].dt * 1000).toDateString();
-  forecastHeader.innerHTML = forecastObj.city.name + "<br />" + formattedDate
-  +"<br />" +
-  '<img src ="https://openweathermap.org/img/wn/' +
-  forecastObj.list[i].weather[0].icon +
-  '@2x.png">';
+    var formattedDate = new Date(forecastObj.list[i].dt * 1000).toDateString();
+    forecastHeader.innerHTML =
+      forecastObj.city.name +
+      "<br />" +
+      formattedDate +
+      "<br />" +
+      '<img src ="https://openweathermap.org/img/wn/' +
+      forecastObj.list[i].weather[0].icon +
+      '@2x.png">';
 
-  console.log(forecastObj.list[i].weather[0].icon);
-  var foreBody = document.createElement("div");
-  foreBody.classList.add("card-body");
-  var foreTemp = document.createElement("h5");
-  foreTemp.classList.add("card-title");
-  foreTemp.innerHTML = "temp: " + forecastObj.list[i].main.temp + "°F";
-  var foreConditions = document.createElement("p");
-  foreConditions.classList.add("card-text");
-  foreConditions.innerHTML =
-    "wind: " +
-    forecastObj.list[i].wind.speed +
-    "<br />" +
-    "humidity: " +
-    forecastObj.list[i].main.humidity +
-    "%";
+    console.log(forecastObj.list[i].weather[0].icon);
+    var foreBody = document.createElement("div");
+    foreBody.classList.add("card-body");
+    var foreTemp = document.createElement("h5");
+    foreTemp.classList.add("card-title");
+    foreTemp.innerHTML = "temp: " + forecastObj.list[i].main.temp + "°F";
+    var foreConditions = document.createElement("p");
+    foreConditions.classList.add("card-text");
+    foreConditions.innerHTML =
+      "wind: " +
+      forecastObj.list[i].wind.speed +
+      "<br />" +
+      "humidity: " +
+      forecastObj.list[i].main.humidity +
+      "%";
     forecastCard.classList.add("card", "mb-3", "ml-5");
-    
-  forecastContainer.append(forecastCard);
-  forecastCard.append(forecastHeader);
-  forecastCard.append(foreBody);
-  forecastHeader = document.createElement("div");
+
+    forecastContainer.append(forecastCard);
+    forecastCard.append(forecastHeader);
+    forecastCard.append(foreBody);
+    forecastHeader = document.createElement("div");
     forecastHeader.classList.add("card-header");
-  foreBody.append(foreTemp);
-  foreBody.append(foreConditions);
-  forecastCard = document.createElement("div");
-    
-}}
+    foreBody.append(foreTemp);
+    foreBody.append(foreConditions);
+    forecastCard = document.createElement("div");
+  }
+}
 
 // calls to Geocoding API to get the cordinates of a city based on the user's form input val
 function getCord(city) {
@@ -161,7 +164,7 @@ function getForecast(searLat, searLon) {
     response.json().then(function (data) {
       // for(var i = 0; i < data.list.length; i++)
       renderForecast(data);
-    
+
       console.log(forQueryUrl);
     });
   });
