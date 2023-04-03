@@ -1,7 +1,7 @@
 var userForm = document.querySelector("#user-form");
 var cityInput = document.querySelector("#city-input");
 var currentContainer = document.querySelector("#current-container");
-// var forecastContainer =  document.querySelector("#forecast-container");
+var forecastContainer = document.querySelector("#forecast-container");
 
 // need to define var savedCityButton : ID of stored city once it is appended
 //class="btn-outline-secondary rounded ml-1 m-2"
@@ -21,46 +21,39 @@ var formSubmitHandler = function (event) {
   }
 };
 
-/*console.log(data.list[0].main.temp + " temp");
-console.log(data.list[0].dt_txt + " time");
-console.log(data.city.name + " city");
-console.log(data.list[0].main.humidity + " humidity");
-console.log(data.list[0].wind.speed + " wind speed");
-console.log(data.list[0].weather[0].icon + " icon id"); */
-
 //renders the date for the city's current conditions
 function renderCurrent(currentObj) {
-    currentContainer.innerHTML = "";
+  currentContainer.innerHTML = "";
   var currentCard = document.createElement("div");
   currentCard.classList.add("card", "mb-3", "ml-5");
   var currentHeader = document.createElement("div");
   currentHeader.classList.add("card-header");
 
-//   var formattedDate = (currentObj.list[0].dt * 1000).toDateString();
-
+  var formattedDate = new Date(currentObj.dt * 1000).toDateString();
+  console.log(formattedDate);
+  console.log(currentObj);
   currentHeader.innerHTML =
-    currentObj.city.name +
-    "<br />" 
-    +
-    // formattedDate +
+    currentObj.name +
+    "<br />" +
+    formattedDate +
     "<br />" +
     '<img src ="https://openweathermap.org/img/wn/' +
-    currentObj.list[0].weather[0].icon +
+    currentObj.weather[0].icon +
     '@2x.png">';
 
   var cardBody = document.createElement("div");
   cardBody.classList.add("card-body");
   var cardTemp = document.createElement("h5");
   cardTemp.classList.add("card-title");
-  cardTemp.innerHTML = "temp: " + currentObj.list[0].main.temp + "°F";
+  cardTemp.innerHTML = "temp: " + currentObj.main.temp + "°F";
   var cardConditions = document.createElement("p");
   cardConditions.classList.add("card-text");
   cardConditions.innerHTML =
     "wind: " +
-    currentObj.list[0].wind.speed +
+    currentObj.wind.speed +
     "<br />" +
     "humidity: " +
-    currentObj.list[0].main.humidity +
+    currentObj.main.humidity +
     "%";
 
   currentContainer.append(currentCard);
@@ -68,6 +61,43 @@ function renderCurrent(currentObj) {
   currentCard.append(cardBody);
   cardBody.append(cardTemp);
   cardBody.append(cardConditions);
+}
+
+function renderForecast(forecastObj) {
+  console.log(forecastObj);
+  forecastContainer.innerHTML = "";
+  var forecastCard = document.createElement("div");
+  forecastCard.classList.add("card", "mb-3", "ml-5");
+  var forecastHeader = document.createElement("div");
+  forecastHeader.classList.add("card-header");
+  var formattedDate = new Date(forecastObj.list[0].dt * 1000).toDateString();
+  forecastHeader.innerHTML = forecastObj.city.name + "<br />" + formattedDate
+  +"<br />" +
+  '<img src ="https://openweathermap.org/img/wn/' +
+  forecastObj.list[0].weather[0].icon +
+  '@2x.png">';
+
+  console.log(forecastObj.list[0].weather[0].icon);
+  var foreBody = document.createElement("div");
+  foreBody.classList.add("card-body");
+  var foreTemp = document.createElement("h5");
+  foreTemp.classList.add("card-title");
+  foreTemp.innerHTML = "temp: " + forecastObj.list[0].main.temp + "°F";
+  var foreConditions = document.createElement("p");
+  foreConditions.classList.add("card-text");
+  foreConditions.innerHTML =
+    "wind: " +
+    forecastObj.list[0].wind.speed +
+    "<br />" +
+    "humidity: " +
+    forecastObj.list[0].main.humidity +
+    "%";
+
+  forecastContainer.append(forecastCard);
+  forecastCard.append(forecastHeader);
+  forecastCard.append(foreBody);
+  foreBody.append(foreTemp);
+  foreBody.append(foreConditions);
 }
 
 // calls to Geocoding API to get the cordinates of a city based on the user's form input val
@@ -88,6 +118,7 @@ function getCord(city) {
           var searchLat = data[0].lat;
           var searchLon = data[0].lon;
 
+          getCurrent(searchLat, searchLon);
           getForecast(searchLat, searchLon);
         });
       } else {
@@ -97,21 +128,33 @@ function getCord(city) {
     .catch(function (error) {
       console.log(error);
     });
-  // getForecast(searchLat, searchLon);
 }
-
-function getForecast(searchLat, searchLon) {
-  var forQueryUrl =
-    "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+function getCurrent(searchLat, searchLon) {
+  var currQueryUrl =
+    "https://api.openweathermap.org/data/2.5/weather?lat=" +
     searchLat +
     "&lon=" +
     searchLon +
     "&units=imperial&appid=891d5adf6f627c8e1d4185e6ee80e104";
+  console.log(currQueryUrl);
+  fetch(currQueryUrl).then(function (response) {
+    response.json().then(function (data) {
+      renderCurrent(data);
+    });
+  });
+}
+function getForecast(searLat, searLon) {
+  var forQueryUrl =
+    "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+    searLat +
+    "&lon=" +
+    searLon +
+    "&units=imperial&appid=891d5adf6f627c8e1d4185e6ee80e104";
   console.log(forQueryUrl);
   fetch(forQueryUrl).then(function (response) {
     response.json().then(function (data) {
-      //   return data[0].lat , data[0].lon;
-      renderCurrent(data);
+      renderForecast(data);
+      console.log(forQueryUrl);
     });
   });
 }
