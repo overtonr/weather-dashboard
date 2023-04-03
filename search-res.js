@@ -3,85 +3,10 @@ var cityInput = document.querySelector("#city-input");
 var currentContainer = document.querySelector("#current-container");
 // var forecastContainer =  document.querySelector("#forecast-container");
 
-
-
-// var getCurrent = function(citySearch){
-//     var currentAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&appid=891d5adf6f627c8e1d4185e6ee80e104";
-//     // console.log(currentAPI);
-//     fetch(currentAPI)
-//     .then(function(response){
-//     return response.json();
-//     console.log(response.json())
-// })
-//     .then(function(response) {
-//     for (var i = 0; i < response.length; i++) {
-//         var listItem = document.createElement('li');
-//         listItem.textContent = response[i];
-//         currentContainer.appendChild(listItem);
-// };
-//     })};
-// getCurrent();
-
-//takes the long and lat values from the weatherAPI and concatonates them in the forecastAPI
-//weatherAPI : coord.lon, coord.lat
-
-// var getForecast = function(lat,lon){
-//     var forecastAPI = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=891d5adf6f627c8e1d4185e6ee80e104";
-//     fetch(forecastAPI)
-//     .then(function(response){
-//     return response.json()})
-//     .then(function(data) {
-//     // console.log(data)
-// });
-// };
-// getForecast();
-
-// var displayCurrent = function(cityInput){
-//     cityInput.textContent = cityInput;
-//     var currentEl = currentContainer.createElement("p");
-//     currentEl.classList = "list-item flex-row justify-space-between align-center";
-//     currentEl.textContent = cityInput;
-
-//     currentEl.appendChild(cityInput);
-
-// }
-
-// function searchForecast(city){
-
-//     var weatherAPI = "https://api.openweathermap.org/data/2.5/weather?q=pacifica&appid=891d5adf6f627c8e1d4185e6ee80e104";
-//     var forecastAPI = "https://api.openweathermap.org/data/2.5/forecast?lat=37.6138&lon=-122.4869&appid=891d5adf6f627c8e1d4185e6ee80e104";
-//     fetch(forecastAPI)
-//         .then(function(response){
-//         return response.json()})
-//         .then(function(data) {
-//         console.log(data)
-//     });
-// };
-// searchForecast();
-
-// fetch(requestUrl)
-//   .then(function (response) {
-//     console.log(response);
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     console.log("data", data)
-//     console.log('Github Repo Issues \n----------');
-//     for (var i = 0; i < data.length; i++) {
-//       console.log(data[i]);
-//       console.log(data[i].url);
-//       console.log(data[i].user.login);
-//     }
-//   });
-
 // need to define var savedCityButton : ID of stored city once it is appended
 //class="btn-outline-secondary rounded ml-1 m-2"
 // userForm.addEventListener("submit",formSubmit);
 // savedCityButton.addEventListener("click", buttonClick);
-
-//user input city -- API call for coordinates
-
-//http://api.openweathermap.org/geo/1.0/direct?q=san+francisco&limit=5&appid=891d5adf6f627c8e1d4185e6ee80e104
 
 // function that captures the value of the form input from the user
 var formSubmitHandler = function (event) {
@@ -96,19 +21,70 @@ var formSubmitHandler = function (event) {
   }
 };
 
+/*console.log(data.list[0].main.temp + " temp");
+console.log(data.list[0].dt_txt + " time");
+console.log(data.city.name + " city");
+console.log(data.list[0].main.humidity + " humidity");
+console.log(data.list[0].wind.speed + " wind speed");
+console.log(data.list[0].weather[0].icon + " icon id"); */
+
+//renders the date for the city's current conditions
+function renderCurrent(currentObj) {
+    currentContainer.innerHTML = "";
+  var currentCard = document.createElement("div");
+  currentCard.classList.add("card", "mb-3", "ml-5");
+  var currentHeader = document.createElement("div");
+  currentHeader.classList.add("card-header");
+
+//   var formattedDate = (currentObj.list[0].dt * 1000).toDateString();
+
+  currentHeader.innerHTML =
+    currentObj.city.name +
+    "<br />" 
+    +
+    // formattedDate +
+    "<br />" +
+    '<img src ="https://openweathermap.org/img/wn/' +
+    currentObj.list[0].weather[0].icon +
+    '@2x.png">';
+
+  var cardBody = document.createElement("div");
+  cardBody.classList.add("card-body");
+  var cardTemp = document.createElement("h5");
+  cardTemp.classList.add("card-title");
+  cardTemp.innerHTML = "temp: " + currentObj.list[0].main.temp + "°F";
+  var cardConditions = document.createElement("p");
+  cardConditions.classList.add("card-text");
+  cardConditions.innerHTML =
+    "wind: " +
+    currentObj.list[0].wind.speed +
+    "<br />" +
+    "humidity: " +
+    currentObj.list[0].main.humidity +
+    "%";
+
+  currentContainer.append(currentCard);
+  currentCard.append(currentHeader);
+  currentCard.append(cardBody);
+  cardBody.append(cardTemp);
+  cardBody.append(cardConditions);
+}
+
 // calls to Geocoding API to get the cordinates of a city based on the user's form input val
 function getCord(city) {
   var corQueryUrl =
-    "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=891d5adf6f627c8e1d4185e6ee80e104";
+    "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    city +
+    "&limit=5&appid=891d5adf6f627c8e1d4185e6ee80e104";
 
   console.log(corQueryUrl);
   fetch(corQueryUrl)
     .then(function (response) {
-    // status in the range 200-299
+      // status in the range 200-299
       if (response.ok) {
         response.json().then(function (data) {
           //only retrieves the data from the first result
-          console.log( data[0].lat, data[0].lon);
+          console.log(data[0].lat, data[0].lon);
           var searchLat = data[0].lat;
           var searchLon = data[0].lon;
 
@@ -121,29 +97,24 @@ function getCord(city) {
     .catch(function (error) {
       console.log(error);
     });
-    // getForecast(searchLat, searchLon);
-};
+  // getForecast(searchLat, searchLon);
+}
 
-
-function getForecast(searchLat, searchLon){
-    var forQueryUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + searchLat + "&lon=" + searchLon + "&units=imperial&appid=891d5adf6f627c8e1d4185e6ee80e104";
-    console.log(forQueryUrl);
-    fetch(forQueryUrl)
-        .then(function(response){
-            response.json().then(function (data) {
-        // data needed: current
-        // city, date, icon, temp, wind, humidity
-            console.log(data.list[0].main.temp + " temp");
-            console.log(data.list[0].dt_txt + " time");
-            console.log(data.city.name + " city");
-            console.log(data.list[0].main.humidity + " humidity");
-            console.log(data.list[0].wind.speed + " wind speed");
-            console.log(data.list[0].weather[0].icon + " icon id");
-        //   return data[0].lat , data[0].lon;
-        })
-    
-})};
-
+function getForecast(searchLat, searchLon) {
+  var forQueryUrl =
+    "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+    searchLat +
+    "&lon=" +
+    searchLon +
+    "&units=imperial&appid=891d5adf6f627c8e1d4185e6ee80e104";
+  console.log(forQueryUrl);
+  fetch(forQueryUrl).then(function (response) {
+    response.json().then(function (data) {
+      //   return data[0].lat , data[0].lon;
+      renderCurrent(data);
+    });
+  });
+}
 
 userForm.addEventListener("submit", formSubmitHandler);
 

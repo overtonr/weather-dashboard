@@ -23,3 +23,7 @@ input,
 button {
   border-width: 1.5px;
 }
+
+.card {
+  max-width: 18rem;
+}
