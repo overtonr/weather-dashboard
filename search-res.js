@@ -9,6 +9,14 @@ var forecastContainer = document.querySelector("#forecast-container");
 // savedCityButton.addEventListener("click", buttonClick);
 
 // function that captures the value of the form input from the user
+function init() {
+  //returns the current docs query
+  var initialVal = document.location.search;
+  //string split so it only returns the search param which is the city entered
+  var query = initialVal.split("=")[1];
+  getCord(query);
+}
+
 var formSubmitHandler = function (event) {
   event.preventDefault();
   var cityName = document.querySelector("#city-input").value.trim();
@@ -69,7 +77,8 @@ function renderForecast(forecastObj) {
   forecastCard.classList.add("card", "mb-3", "ml-5");
   var forecastHeader = document.createElement("div");
   forecastHeader.classList.add("card-header");
-  var numForecasts = forecastObj.list.length + 1;
+  var numForecasts = forecastObj.list.length;
+  console.log(forecastObj.list[0].dt);
   for (var i = 0; i < numForecasts; i += 8) {
     var formattedDate = new Date(forecastObj.list[i].dt * 1000).toDateString();
     forecastHeader.innerHTML =
@@ -175,3 +184,6 @@ userForm.addEventListener("submit", formSubmitHandler);
 //after API for coordinates made, API for forecast using the values from the prev call
 // function that renders data for searched city onto screem
 // buttons appended allow for users to search for prev searches
+
+//run on page loading: gets initial api request from landing page
+init();

@@ -6,7 +6,7 @@ function formSubmit(event) {
   event.preventDefault();
 
   var searchVal = document.querySelector("#search-input").value;
-//   var stateInpV = document.querySelector('#state-input').value;
+
   console.log(searchVal);
 
   if (!searchVal) {
@@ -17,8 +17,9 @@ function formSubmit(event) {
   var queryString = './search-res.html?q=' + searchVal;
 
   location.assign(queryString);
+  console.log(queryString);
 }
 
-console.log("hello");
+
 
 userForm.addEventListener("submit", formSubmit);
