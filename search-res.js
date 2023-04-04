@@ -3,6 +3,8 @@ var cityInput = document.querySelector("#city-input");
 var currentContainer = document.querySelector("#current-container");
 var forecastContainer = document.querySelector("#forecast-container");
 
+var APIKey ="891d5adf6f627c8e1d4185e6ee80e104" ;
+
 // need to define var savedCityButton : ID of stored city once it is appended
 //class="btn-outline-secondary rounded ml-1 m-2"
 // userForm.addEventListener("submit",formSubmit);
@@ -17,6 +19,7 @@ function init() {
   getCord(query);
 }
 
+
 var formSubmitHandler = function (event) {
   event.preventDefault();
   var cityName = document.querySelector("#city-input").value.trim();
@@ -24,6 +27,7 @@ var formSubmitHandler = function (event) {
     getCord(cityName);
     cityInput.value = "";
   } else {
+    //error logged if the input is empty
     console.log("Please enter a city");
   }
 };
@@ -32,9 +36,9 @@ var formSubmitHandler = function (event) {
 function renderCurrent(currentObj) {
   currentContainer.innerHTML = "";
   var currentCard = document.createElement("div");
-  currentCard.classList.add("card", "mb-3", "ml-5");
+  currentCard.classList.add("card", "col-md-8");
   var currentHeader = document.createElement("div");
-  currentHeader.classList.add("card-header");
+  // currentHeader.classList.add("card-header");
 
   var formattedDate = new Date(currentObj.dt * 1000).toDateString();
   console.log(formattedDate);
@@ -74,9 +78,8 @@ function renderForecast(forecastObj) {
   console.log(forecastObj);
   forecastContainer.innerHTML = "";
   var forecastCard = document.createElement("div");
-  forecastCard.classList.add("card", "mb-3", "ml-5");
   var forecastHeader = document.createElement("div");
-  forecastHeader.classList.add("card-header");
+  
   var numForecasts = forecastObj.list.length;
   console.log(forecastObj.list[0].dt);
   for (var i = 0; i < numForecasts; i += 8) {
@@ -105,13 +108,14 @@ function renderForecast(forecastObj) {
       "humidity: " +
       forecastObj.list[i].main.humidity +
       "%";
-    forecastCard.classList.add("card", "mb-3", "ml-5");
-
+      forecastCard.classList.add("card" , "col-md-8");
+      
+    
     forecastContainer.append(forecastCard);
     forecastCard.append(forecastHeader);
     forecastCard.append(foreBody);
     forecastHeader = document.createElement("div");
-    forecastHeader.classList.add("card-header");
+    // forecastHeader.classList.add("card-header");
     foreBody.append(foreTemp);
     foreBody.append(foreConditions);
     forecastCard = document.createElement("div");
@@ -123,7 +127,7 @@ function getCord(city) {
   var corQueryUrl =
     "http://api.openweathermap.org/geo/1.0/direct?q=" +
     city +
-    "&limit=5&appid=891d5adf6f627c8e1d4185e6ee80e104";
+    "&limit=5&appid=" + APIKey;
 
   console.log(corQueryUrl);
   fetch(corQueryUrl)
@@ -167,7 +171,7 @@ function getForecast(searLat, searLon) {
     searLat +
     "&lon=" +
     searLon +
-    "&units=imperial&appid=891d5adf6f627c8e1d4185e6ee80e104";
+    "&units=imperial&appid=" + APIKey;
   console.log(forQueryUrl);
   fetch(forQueryUrl).then(function (response) {
     response.json().then(function (data) {

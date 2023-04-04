@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>weather dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./style.css" />
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Raleway:wght@100;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./jass.css">     
+<link rel="stylesheet" href="./style.css">
+    <title>weather dashboard</title>
 </head>
 
 <body>
-  <header class="navbar navbar-light justify-content-center">
-    <h1 class="text-light text-center">weather dashboard</h1>
-</header>
+  <!-- <header class="navbar justify-content-center"> -->
+    <h1 class="text-center">weather dashboard</h1>
+    <p class="land"> enter a city to search for current and forecasted weather conditions</p>
+<!-- </header> -->
   <div class="flex-row align-center justify-center min-100-vh">
-    <div class="col-12 col-md-9 flex-column align-center bg-light p-5">
+    <div class="col-12 col-md-9 flex-column align-center p-5">
       <!-- <h1 class="text-primary">weather dashboard</h1> -->
       <form id="search-form" class="form w-100">
         <input id="search-input" class="form-input w-100 text-center" type="text" placeholder="search for a city">
-        <button class="btn btn-block btn-secondary">search</button>
+        <button class="btn btn-block">search</button>
       </form>
     </div>
   </div>
+
 
   <script src="./script.js"></script>
 </body>

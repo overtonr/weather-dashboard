@@ -8,17 +8,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Raleway:wght@100;400;500&display=swap" rel="stylesheet">
-     <link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./jass.css">     
+<link rel="stylesheet" href="./style.css">
     <title>weather dashboard</title>
 </head>
 <body>
-    <header class="navbar navbar-light justify-content-center">
+    <!-- <header class="navbar navbar-light justify-content-center">
         <h1 class="navbar-brand text-light mb-0">weather dashboard</h1>
-    </header>
+    </header> -->
     <main class="flex-row justify-space-between">
     <div class="col-12 col-md-4 p-4">
-      <div class="card text-secondary">
-        <h3 class="card-header">search by city</h3>
+      <div class="card">
+        <h3>search by city</h3>
         <form id="user-form" class="card-body">
           <label class="form-label">city:</label>
           <input id="city-input" type="text" class="form-input rounded"/>
@@ -26,57 +27,25 @@
         </form>
       </div>
       </div>
-      <div class="col-12 col-md-4 p-4 ">
-        <div class="card text-secondary">
+      <!-- <div class="col-12 col-md-4 p-4 ">
+        <div class="card">
           <h3 class="card-header">saved cities</h3>
           <div id="saved-cities" class="card-body"></div>
         </div>
-      </div>
-     
-      <div class="col-12 col-md-8 p-4">
-        <h3 class= "subtitle text-secondary">current conditions:</h2>
-        <div id="current-container" class="list-group"></div>
-      </div>
-      
-      <div class="col-12 col-md-8 p-4 ">
-        <h3 class= "subtitle text-secondary">5 day forecast:</h2>
-        <div id="forecast-container" class="list-group"></div>
-      </div>
-      <!-- <div class="col-12 col-md-8 p-4 ">
-        <h2 class="subtitle text-secondary">forecast: <span id="forecast-weather"></span></h2>
-        <div id="forecast-container"></div>
       </div> -->
-
-      
-      <!-- <div class = "row col-10">
-      <div class="card bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-          <h5 class="card-title">Light card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div class="card bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-          <h5 class="card-title">Light card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div class="card bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-          <h5 class="card-title">Light card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div class="card bg-light mb-3" style="max-width: 18rem;"> -->
-        <!-- <div class="card-header">Header</div>
-        <div class="card-body">
-          <h5 class="card-title">Light card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div> -->
      
+      <div class="container">
+        <div>
+        <div>
+          <h3 class= "subtitle">current conditions:</h2>
+          <div id="current-container" class="list-group"></div>
+        </div>
+    <div class="row"></div>
+          <h3 class= "subtitle">5 day forecast:</h2>
+          <div id="forecast-container" class="row list-group"></div>
+        </div>
+      
+      </div>
     </div>
 
 
