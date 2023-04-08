@@ -16,6 +16,7 @@ function init() {
   var initialVal = document.location.search;
   //string split so it only returns the search param which is the city entered
   var query = initialVal.split("=")[1];
+  console.log(initialVal);
   console.log(query);
   getCord(query);
 }
