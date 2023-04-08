@@ -16,6 +16,7 @@ function init() {
   var initialVal = document.location.search;
   //string split so it only returns the search param which is the city entered
   var query = initialVal.split("=")[1];
+  console.log(query);
   getCord(query);
 }
 
@@ -125,7 +126,7 @@ function renderForecast(forecastObj) {
 // calls to Geocoding API to get the cordinates of a city based on the user's form input val
 function getCord(city) {
   var corQueryUrl =
-    "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    "https://api.openweathermap.org/geo/1.0/direct?q=" +
     city +
     "&limit=5&appid=" + APIKey;
 
@@ -162,6 +163,7 @@ function getCurrent(searchLat, searchLon) {
   fetch(currQueryUrl).then(function (response) {
     response.json().then(function (data) {
       renderCurrent(data);
+      console.log(data);
     });
   });
 }
@@ -177,8 +179,8 @@ function getForecast(searLat, searLon) {
     response.json().then(function (data) {
       // for(var i = 0; i < data.list.length; i++)
       renderForecast(data);
-
       console.log(forQueryUrl);
+      console.log(data);
     });
   });
 }
